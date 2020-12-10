@@ -1,4 +1,6 @@
-specVersion: 0.0.1
+specVersion: 0.0.2
+description: Equalizer DEX
+repository: https://github.com/status92/equalizer3
 schema:
   file: ./schema.graphql
 dataSources:
@@ -8,9 +10,10 @@ dataSources:
     source:
       address: "0xEf1eCdB17C7D4adBb4DB5c4A8068ab66f3dd0902"
       abi: Contract
+      startBlock: 10949990
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.2
+      apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
         - Burn

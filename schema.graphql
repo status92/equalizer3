@@ -1,6 +1,45 @@
-type ExampleEntity @entity {
+type BurnToken @entity {
   id: ID!
   count: BigInt!
+  amount: BigInt! # uint256
   initiator: Bytes! # address
-  lpToken: Bytes! # address
+  lpToken: Bytes! # address 
 }
+
+ type DepositToken @entity {
+  id: ID! 
+  count: BigInt!
+  user: Bytes! # address
+  amount: BigInt! # uint256
+  lpToken: Bytes! # address 
+}
+
+type EmergencyWithdrawToken @entity {
+  id: ID! 
+  count: BigInt!
+  user: Bytes! # address
+  amount: BigInt! # uint256
+  lpToken: Bytes! # address 
+}
+
+type NewRoundToken @entity {
+  id: ID! 
+  count: BigInt!
+  number: BigInt! 
+  prevTotalAllocPoint: BigInt! 
+  endBlock: BigInt! 
+}
+
+type WithdrawToken @entity {
+  id: ID! 
+  count: BigInt!
+  user: Bytes! # address
+  amount: BigInt! # uint256
+  lpToken: Bytes! # address 
+}
+
+
+
+
+
+
