@@ -8,78 +8,79 @@ import {
   OwnershipTransferred,
   Withdraw
 } from "../generated/Contract/Contract"
-import { ExampleEntity } from "../generated/schema"
+import { BurnToken, DepositToken, EmergencyWithdrawToken, NewRoundToken, WithdrawToken } from "../generated/schema"
+
 
 export function handleBurn(event: Burn): void {
-  // Entities can be loaded from the store using a string ID; this ID
-  // needs to be unique across all entities of the same type
-  let entity = ExampleEntity.load(event.transaction.from.toHex())
-
-  // Entities only exist after they have been saved to the store;
-  // `null` checks allow to create entities on demand
-  if (entity == null) {
-    entity = new ExampleEntity(event.transaction.from.toHex())
-
-    // Entity fields can be set using simple assignments
-    entity.count = BigInt.fromI32(0)
+  let burn = BurnToken.load(event.params.amount.toHex())
+  if (burn == null) {
+    burn = new BurnToken(event.params.amount.toHex())
+    burn.count = BigInt.fromI32(0)
   }
 
-  // BigInt and BigDecimal math are supported
-  entity.count = entity.count + BigInt.fromI32(1)
-
-  // Entity fields can be set based on event parameters
-  entity.initiator = event.params.initiator
-  entity.lpToken = event.params.lpToken
-
-  // Entities can be written to the store with `.save()`
-  entity.save()
-
-  // Note: If a handler doesn't require existing field values, it is faster
-  // _not_ to load the entity from the store. Instead, create it fresh with
-  // `new Entity(...)`, set the fields that should be updated and save the
-  // entity back to the store. Fields that were not set or unset remain
-  // unchanged, allowing for partial updates to be applied.
-
-  // It is also possible to access smart contracts from mappings. For
-  // example, the contract that has emitted the event can be connected to
-  // with:
-  //
-  // let contract = Contract.bind(event.address)
-  //
-  // The following functions can then be called on this contract to access
-  // state variables and other data:
-  //
-  // - contract.allocAdjustBlocks(...)
-  // - contract.allocPointDecayNumerator(...)
-  // - contract.blocksInGenesisEpoch(...)
-  // - contract.burnEqualEfficiency(...)
-  // - contract.devaddr(...)
-  // - contract.equal(...)
-  // - contract.factory(...)
-  // - contract.genesisEqualPerBlock(...)
-  // - contract.getAPY(...)
-  // - contract.getCurrentRoundAllocPoint(...)
-  // - contract.getEqualBlockReward(...)
-  // - contract.getLastRoundAllocPoint(...)
-  // - contract.getPool(...)
-  // - contract.getPoolAllocPoint(...)
-  // - contract.getPoolAndUserInfo(...)
-  // - contract.getPoolUserInfo(...)
-  // - contract.getRoundLengthAndLastEndBlock(...)
-  // - contract.getUserInfoAmount(...)
-  // - contract.owner(...)
-  // - contract.pendingEqual(...)
-  // - contract.poolInfo(...)
-  // - contract.rounds(...)
-  // - contract.startBlock(...)
+  burn.count = burn.count + BigInt.fromI32(1)
+  burn.amount = event.params.amount
+  burn.initiator = event.params.initiator
+  burn.lpToken = event.params.lpToken
+  burn.save()
 }
 
-export function handleDeposit(event: Deposit): void {}
+export function handleDeposit(event: Deposit): void {
+  let deposit = DepositToken.load(event.params.amount.toHex())
+  if (deposit == null) {
+    deposit = new DepositToken(event.params.amount.toHex())
+    deposit.count = BigInt.fromI32(0)
+  }
 
-export function handleEmergencyWithdraw(event: EmergencyWithdraw): void {}
+  deposit.count = deposit.count + BigInt.fromI32(1)
+  deposit.amount = event.params.amount
+  deposit.user = event.params.user
+  deposit.lpToken = event.params.lpToken
+  deposit.save()
+}
 
-export function handleNewRound(event: NewRound): void {}
+export function handleEmergencyWithdraw(event: EmergencyWithdraw): void {
+  let emergencyWithdraw = EmergencyWithdrawToken.load(event.params.amount.toHex())
+  if (emergencyWithdraw == null) {
+    emergencyWithdraw = new EmergencyWithdrawToken(event.params.amount.toHex())
+    emergencyWithdraw.count = BigInt.fromI32(0)
+  }
+
+  emergencyWithdraw.count = emergencyWithdraw.count + BigInt.fromI32(1)
+  emergencyWithdraw.amount = event.params.amount
+  emergencyWithdraw.user = event.params.user
+  emergencyWithdraw.lpToken = event.params.lpToken
+  emergencyWithdraw.save()
+  }
+
+ 
+export function handleNewRound(event: NewRound): void {
+  let newRound = NewRoundToken.load(event.params.number.toHex())
+  if (newRound == null) {
+    newRound = new NewRoundToken(event.params.number.toHex())
+    newRound.count = BigInt.fromI32(0)
+  }
+
+  newRound.count = newRound.count + BigInt.fromI32(1)
+  newRound.number = event.params.number
+  newRound.prevTotalAllocPoint = event.params.prevTotalAllocPoint
+  newRound.endBlock = event.params.endBlock
+  newRound.save()
+}
+
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {}
 
-export function handleWithdraw(event: Withdraw): void {}
+export function handleWithdraw(event: Withdraw): void {
+  let withdraw = WithdrawToken.load(event.params.amount.toHex())
+  if (withdraw == null) {
+    withdraw = new WithdrawToken(event.params.amount.toHex())
+    withdraw.count = BigInt.fromI32(0)
+  }
+
+  withdraw.count = withdraw.count + BigInt.fromI32(1)
+  withdraw.amount = event.params.amount
+  withdraw.user = event.params.user
+  withdraw.lpToken = event.params.lpToken
+  withdraw.save()
+}
