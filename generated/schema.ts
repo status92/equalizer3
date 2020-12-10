@@ -12,7 +12,7 @@ import {
   BigDecimal
 } from "@graphprotocol/graph-ts";
 
-export class ExampleEntity extends Entity {
+export class BurnToken extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -20,17 +20,17 @@ export class ExampleEntity extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id !== null, "Cannot save ExampleEntity entity without an ID");
+    assert(id !== null, "Cannot save BurnToken entity without an ID");
     assert(
       id.kind == ValueKind.STRING,
-      "Cannot save ExampleEntity entity with non-string ID. " +
+      "Cannot save BurnToken entity with non-string ID. " +
         'Considering using .toHex() to convert the "id" to a string.'
     );
-    store.set("ExampleEntity", id.toString(), this);
+    store.set("BurnToken", id.toString(), this);
   }
 
-  static load(id: string): ExampleEntity | null {
-    return store.get("ExampleEntity", id) as ExampleEntity | null;
+  static load(id: string): BurnToken | null {
+    return store.get("BurnToken", id) as BurnToken | null;
   }
 
   get id(): string {
@@ -49,6 +49,15 @@ export class ExampleEntity extends Entity {
 
   set count(value: BigInt) {
     this.set("count", Value.fromBigInt(value));
+  }
+
+  get amount(): BigInt {
+    let value = this.get("amount");
+    return value.toBigInt();
+  }
+
+  set amount(value: BigInt) {
+    this.set("amount", Value.fromBigInt(value));
   }
 
   get initiator(): Bytes {
@@ -70,7 +79,7 @@ export class ExampleEntity extends Entity {
   }
 }
 
-export class ExampleBurn extends Entity {
+export class DepositToken extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -78,17 +87,17 @@ export class ExampleBurn extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id !== null, "Cannot save ExampleBurn entity without an ID");
+    assert(id !== null, "Cannot save DepositToken entity without an ID");
     assert(
       id.kind == ValueKind.STRING,
-      "Cannot save ExampleBurn entity with non-string ID. " +
+      "Cannot save DepositToken entity with non-string ID. " +
         'Considering using .toHex() to convert the "id" to a string.'
     );
-    store.set("ExampleBurn", id.toString(), this);
+    store.set("DepositToken", id.toString(), this);
   }
 
-  static load(id: string): ExampleBurn | null {
-    return store.get("ExampleBurn", id) as ExampleBurn | null;
+  static load(id: string): DepositToken | null {
+    return store.get("DepositToken", id) as DepositToken | null;
   }
 
   get id(): string {
@@ -98,5 +107,312 @@ export class ExampleBurn extends Entity {
 
   set id(value: string) {
     this.set("id", Value.fromString(value));
+  }
+
+  get count(): BigInt {
+    let value = this.get("count");
+    return value.toBigInt();
+  }
+
+  set count(value: BigInt) {
+    this.set("count", Value.fromBigInt(value));
+  }
+
+  get user(): Bytes {
+    let value = this.get("user");
+    return value.toBytes();
+  }
+
+  set user(value: Bytes) {
+    this.set("user", Value.fromBytes(value));
+  }
+
+  get amount(): BigInt {
+    let value = this.get("amount");
+    return value.toBigInt();
+  }
+
+  set amount(value: BigInt) {
+    this.set("amount", Value.fromBigInt(value));
+  }
+
+  get lpToken(): Bytes {
+    let value = this.get("lpToken");
+    return value.toBytes();
+  }
+
+  set lpToken(value: Bytes) {
+    this.set("lpToken", Value.fromBytes(value));
+  }
+}
+
+export class EmergencyWithdrawToken extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(
+      id !== null,
+      "Cannot save EmergencyWithdrawToken entity without an ID"
+    );
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save EmergencyWithdrawToken entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("EmergencyWithdrawToken", id.toString(), this);
+  }
+
+  static load(id: string): EmergencyWithdrawToken | null {
+    return store.get(
+      "EmergencyWithdrawToken",
+      id
+    ) as EmergencyWithdrawToken | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get count(): BigInt {
+    let value = this.get("count");
+    return value.toBigInt();
+  }
+
+  set count(value: BigInt) {
+    this.set("count", Value.fromBigInt(value));
+  }
+
+  get user(): Bytes {
+    let value = this.get("user");
+    return value.toBytes();
+  }
+
+  set user(value: Bytes) {
+    this.set("user", Value.fromBytes(value));
+  }
+
+  get amount(): BigInt {
+    let value = this.get("amount");
+    return value.toBigInt();
+  }
+
+  set amount(value: BigInt) {
+    this.set("amount", Value.fromBigInt(value));
+  }
+
+  get lpToken(): Bytes {
+    let value = this.get("lpToken");
+    return value.toBytes();
+  }
+
+  set lpToken(value: Bytes) {
+    this.set("lpToken", Value.fromBytes(value));
+  }
+}
+
+export class NewRoundToken extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save NewRoundToken entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save NewRoundToken entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("NewRoundToken", id.toString(), this);
+  }
+
+  static load(id: string): NewRoundToken | null {
+    return store.get("NewRoundToken", id) as NewRoundToken | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get count(): BigInt {
+    let value = this.get("count");
+    return value.toBigInt();
+  }
+
+  set count(value: BigInt) {
+    this.set("count", Value.fromBigInt(value));
+  }
+
+  get number(): BigInt {
+    let value = this.get("number");
+    return value.toBigInt();
+  }
+
+  set number(value: BigInt) {
+    this.set("number", Value.fromBigInt(value));
+  }
+
+  get prevTotalAllocPoint(): BigInt {
+    let value = this.get("prevTotalAllocPoint");
+    return value.toBigInt();
+  }
+
+  set prevTotalAllocPoint(value: BigInt) {
+    this.set("prevTotalAllocPoint", Value.fromBigInt(value));
+  }
+
+  get endBlock(): BigInt {
+    let value = this.get("endBlock");
+    return value.toBigInt();
+  }
+
+  set endBlock(value: BigInt) {
+    this.set("endBlock", Value.fromBigInt(value));
+  }
+}
+
+export class WithdrawToken extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save WithdrawToken entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save WithdrawToken entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("WithdrawToken", id.toString(), this);
+  }
+
+  static load(id: string): WithdrawToken | null {
+    return store.get("WithdrawToken", id) as WithdrawToken | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get count(): BigInt {
+    let value = this.get("count");
+    return value.toBigInt();
+  }
+
+  set count(value: BigInt) {
+    this.set("count", Value.fromBigInt(value));
+  }
+
+  get user(): Bytes {
+    let value = this.get("user");
+    return value.toBytes();
+  }
+
+  set user(value: Bytes) {
+    this.set("user", Value.fromBytes(value));
+  }
+
+  get amount(): BigInt {
+    let value = this.get("amount");
+    return value.toBigInt();
+  }
+
+  set amount(value: BigInt) {
+    this.set("amount", Value.fromBigInt(value));
+  }
+
+  get lpToken(): Bytes {
+    let value = this.get("lpToken");
+    return value.toBytes();
+  }
+
+  set lpToken(value: Bytes) {
+    this.set("lpToken", Value.fromBytes(value));
+  }
+}
+
+export class OwnershipTransferredToken extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(
+      id !== null,
+      "Cannot save OwnershipTransferredToken entity without an ID"
+    );
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save OwnershipTransferredToken entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("OwnershipTransferredToken", id.toString(), this);
+  }
+
+  static load(id: string): OwnershipTransferredToken | null {
+    return store.get(
+      "OwnershipTransferredToken",
+      id
+    ) as OwnershipTransferredToken | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get count(): BigInt {
+    let value = this.get("count");
+    return value.toBigInt();
+  }
+
+  set count(value: BigInt) {
+    this.set("count", Value.fromBigInt(value));
+  }
+
+  get previousOwner(): Bytes {
+    let value = this.get("previousOwner");
+    return value.toBytes();
+  }
+
+  set previousOwner(value: Bytes) {
+    this.set("previousOwner", Value.fromBytes(value));
+  }
+
+  get newOwner(): Bytes {
+    let value = this.get("newOwner");
+    return value.toBytes();
+  }
+
+  set newOwner(value: Bytes) {
+    this.set("newOwner", Value.fromBytes(value));
   }
 }
